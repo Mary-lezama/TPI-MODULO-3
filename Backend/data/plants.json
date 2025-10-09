@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "1759864383739",
+    "name": "Lavanda",
+    "species": "Lavandula angustifolia",
+    "price": 1200,
+    "stock": 15
+  }
+]
