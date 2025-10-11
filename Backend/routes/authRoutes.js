@@ -1,10 +1,15 @@
-const express = require('express')
-const router = express.Router()
-const { register, login } = require('../controllers/authController')
-const { verifyToken } = require('../middlewares/authMiddleware')
+const express = require('express');
+const router = express.Router();
+const { register, login } = require('../controllers/authController');
+const verifyToken = require('../middlewares/authMiddleware');
 
-router.post('/register', register)
-router.post('/login', login)
-router.post('/', verifyToken, createPlant)
+// 🔐 Rutas públicas
+router.post('/register', register);
+router.post('/login', login);
 
-module. exports = router
+// 🔒 Ruta protegida: para verificar si el token es válido
+router.get('/verify', verifyToken, (req, res) => {
+  res.json({ message: 'Token válido', user: req.user });
+});
+
+module.exports = router;

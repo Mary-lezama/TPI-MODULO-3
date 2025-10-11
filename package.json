@@ -1,16 +1,27 @@
 {
-  "devDependencies": {
-    "body-parser": "^2.2.0",
-    "cors": "^2.8.5",
-    "express": "^5.1.0"
+  "name": "api-vivero",
+  "version": "1.0.0",
+  "description": "API REST del vivero con Express.js, validaciones, autenticación JWT y almacenamiento en JSON.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "engines": {
+    "node": "20.x"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "uuid": "^13.0.0",
     "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "body-parser": "^2.2.0"
   }
 }

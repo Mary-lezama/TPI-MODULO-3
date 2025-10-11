@@ -1,35 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const { 
-    getAllPlants,
-    getPlantById,
-    createPlant,
-    updatePlant,
-    deletePlant
-} = require('../controllers/plantController');
-
-const { plantValidator } = require('../middlewares/validators');
+const verifyToken = require('../middlewares/authMiddleware');
 const { validationResult } = require('express-validator');
+const { plantValidator } = require('../middlewares/validators');
+const { getAllPlants,getPlantById,createPlant,updatePlant,deletePlant } = require('../controllers/plantController');
 
-// obtener todas las plantas
-router.get('/', getAllPlants)
+//  Obtener todas las plantas (público o protegido, según prefieras)
+router.get('/', getAllPlants);
 
-// obtener una planta por id
-router.get('/:id', getPlantById)
+//  Obtener una planta por ID (público)
+router.get('/:id', getPlantById);
 
 // crear una nueva planta con validacion
-router.post('/', plantValidator, (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-    createPlant(req, res);
+router.post('/', verifyToken, plantValidator, (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  createPlant(req, res);
 });
+//  Actualizar una planta existente (solo autenticados)
+router.put('/:id', verifyToken, updatePlant);
 
-// actualizar una planta existente
-router.put('/:id', updatePlant)
-
-// eliminar una planta
-router.delete('/:id', deletePlant)
+//  Eliminar una planta (solo autenticados)
+router.delete('/:id', verifyToken, deletePlant);
 
 module.exports = router;
+
