@@ -2,9 +2,10 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { readJSON, writeJSON } = require('./jsonService');
 const path = require('path');
+require('dotenv').config();
 
 const usersPath = path.join(__dirname, '../data/users.json');
-const SECRET = 'la_clave_secreta'; // podés moverlo a .env más adelante
+
 
 // Registro
 async function registerUser({ username, password }) {
@@ -31,8 +32,16 @@ async function loginUser({ username, password }) {
     throw new Error('Credenciales inválidas');
   }
 
-  const token = jwt.sign({ id: user.id, username: user.username }, SECRET, { expiresIn: '1h' });
+   // usamos la variable de entorno
+  const token = jwt.sign(
+    { id: user.id, username: user.username },
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' }
+  );
+
   return token;
 }
 
 module.exports = { registerUser, loginUser };
+
+

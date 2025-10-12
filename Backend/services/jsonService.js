@@ -1,43 +1,40 @@
 const fs = require('fs');
-const path = require('path');
 
-function readJSON(fileName) {
-  const filePath = path.join(__dirname, `../data/${fileName}`);
+function readJSON(filePath) {
   if (!fs.existsSync(filePath)) return [];
   const data = fs.readFileSync(filePath, 'utf8');
   return JSON.parse(data || '[]');
 }
 
-function writeJSON(fileName, data) {
-  const filePath = path.join(__dirname, `../data/${fileName}`);
+function writeJSON(filePath, data) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
 
-function getById(fileName, id) {
-  const items = readJSON(fileName);
+function getById(filePath, id) {
+  const items = readJSON(filePath);
   return items.find(item => item.id == id);
 }
 
-function saveItem(fileName, newItem) {
-  const items = readJSON(fileName);
+function saveItem(filePath, newItem) {
+  const items = readJSON(filePath);
   items.push(newItem);
-  writeJSON(fileName, items);
+  writeJSON(filePath, items);
   return newItem;
 }
 
-function updateItem(fileName, id, updatedData) {
-  const items = readJSON(fileName);
+function updateItem(filePath, id, updatedData) {
+  const items = readJSON(filePath);
   const index = items.findIndex(item => item.id == id);
   if (index === -1) return null;
   items[index] = { ...items[index], ...updatedData };
-  writeJSON(fileName, items);
+  writeJSON(filePath, items);
   return items[index];
 }
 
-function deleteItem(fileName, id) {
-  const items = readJSON(fileName);
+function deleteItem(filePath, id) {
+  const items = readJSON(filePath);
   const filtered = items.filter(item => item.id != id);
-  writeJSON(fileName, filtered);
+  writeJSON(filePath, filtered);
   return items.length !== filtered.length;
 }
 

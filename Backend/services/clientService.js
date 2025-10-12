@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs').promises;
 const Client = require('../models/client');
-
 const clientsPath = path.join(__dirname, '../data/clients.json');
+
 
 // Leer todos los clientes
 const getAllClients = async () => {

@@ -9,6 +9,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
+
 // Inicializar configuración .env
 dotenv.config();
 const SECRET = process.env.JWT_SECRET;
@@ -27,9 +28,9 @@ const saleRoutes = require('./Backend/routes/saleRoutes');
 const errorHandler = require('./Backend/middlewares/errorHandler');
 
 // Rutas base
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 app.use('/api/clients', clientRoutes);
-app.use('/api/plants', plantRoutes);
+app.use('/plants', plantRoutes);
 app.use('/api/sales', saleRoutes);
 app.use(errorHandler);
 
