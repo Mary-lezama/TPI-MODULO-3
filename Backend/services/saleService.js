@@ -65,7 +65,7 @@ const createSale = async ({ clientId, items }) => {
   const sales = await readJSON(salesPath);
   const newSale = new Sale({
     id: Date.now().toString(),
-    date: new Date().toISOString(),
+    date: new Date().toLocaleString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires' }), // fecha y hora exacta en argentina
     clientId,
     items: saleItems,
     total,

@@ -4,13 +4,13 @@
     "name": "Lavanda actualizada",
     "species": "Lavandula angustifolia",
     "price": 1200,
-    "stock": 15
+    "stock": 10
   },
   {
     "id": "1760240848212",
     "name": "prueba",
     "species": "Lavandula angustifolia",
     "price": 1200,
-    "stock": 15
+    "stock": 13
   }
 ]

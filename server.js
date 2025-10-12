@@ -29,9 +29,9 @@ const errorHandler = require('./Backend/middlewares/errorHandler');
 
 // Rutas base
 app.use('/auth', authRoutes);
-app.use('/api/clients', clientRoutes);
+app.use('/clients', clientRoutes);
 app.use('/plants', plantRoutes);
-app.use('/api/sales', saleRoutes);
+app.use('/sales', saleRoutes);
 app.use(errorHandler);
 
 // Ruta raíz 
