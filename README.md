@@ -1,7 +1,7 @@
 <img width="1160" height="641" alt="image" src="https://github.com/user-attachments/assets/26766639-ce7d-4a4b-83df-f86a807ddc95" />
 
 
-##🌱 API Vivero
+## 🌱 API Vivero
 
 API RESTful para la gestión de un vivero: clientes, plantas y ventas.
 
@@ -18,7 +18,7 @@ Ventas: Procesamiento de ventas con control de inventario
 Autenticación: Sistema seguro con JWT
 
 
-##🚀 Tecnologías
+## 🚀 Tecnologías
 
 Node.js - Entorno de ejecución
 
@@ -159,7 +159,7 @@ DELETE /sales/:id →  Eliminar venta
 
 ---
 
-##🔒 Autenticación
+## 🔒 Autenticación
 
 La API utiliza JWT (JSON Web Tokens) para autenticación.
 
@@ -175,7 +175,7 @@ Authorization: Bearer tu_token_jwt_aqui
 
 ---
 
-##✅ Validaciones
+## ✅ Validaciones
 
 La API valida automáticamente:
 
@@ -189,7 +189,7 @@ Auth: Username mínimo 3 caracteres, password mínimo 6 caracteres
 
 ---
 
-##🛠️ Scripts Disponibles
+## 🛠️ Scripts Disponibles
 
 npm start        # Iniciar servidor en producción
 
@@ -197,7 +197,7 @@ npm run dev      # Iniciar servidor en desarrollo (nodemon)
 
 ---
 
-##🌐 Deployment
+## 🌐 Deployment
 
 La API está lista para ser desplegada en plataformas como: Render
 
@@ -205,7 +205,7 @@ El puerto se configura automáticamente mediante process.env.PORT.
 
 ---
 
-##👥 Autores
+## 👥 Autores
 
 Nazarena Contreras
 
@@ -214,7 +214,7 @@ Mary Lezama
 Rocio Ibañez
 
 ---
-###¡Listo! 🚀
+### ¡Listo! 🚀
 
 Desarrollado con ❤️ por el equipo del Vivero.
 
