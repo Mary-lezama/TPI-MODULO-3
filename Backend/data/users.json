@@ -18,5 +18,17 @@
     "id": "1760286820165",
     "username": "PRUEBA 1",
     "password": "$2b$10$84lwHiQ02PkjYA.UlsUEZeIS4EkCMteG2EREvoQxx5YB1kB3iAUPy"
+  },
+  {
+    "id": "c3dd0171-6b28-4a08-9ceb-5e58c0441b79",
+    "username": "anabanana",
+    "password": "$2b$10$7pfE4rhEaCNFzTzsVGeWIOI0RJiO.lAZCfeflG4vxNayGN55ogqu6",
+    "createdAt": "2025-10-15T20:41:57.779Z"
+  },
+  {
+    "id": "6b8691b4-7af2-4645-a1d9-f80c1781e8a0",
+    "username": "nachi",
+    "password": "$2b$10$hSidthCEIorlTrHoBCnWfeaMQtFXZ/s.gMqz9Ae3Hc5beisk3eOOW",
+    "createdAt": "2025-10-15T21:13:08.776Z"
   }
 ]

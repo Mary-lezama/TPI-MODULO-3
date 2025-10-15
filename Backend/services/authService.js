@@ -130,5 +130,3 @@ async function logoutUser() {
 }
 
 module.exports = { registerUser, loginUser, logoutUser };
-
-
