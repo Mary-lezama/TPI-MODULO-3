@@ -45,7 +45,17 @@ const isValidPhone = (phone) => {
 //Leer todos los clientes
 const getAllClients = async () => {
   const clientsData = await readClientsFile();
-  return clientsData.map(c => new Client(c));
+  const clients = [];
+  
+  for (const c of clientsData) {
+    try {
+      clients.push(new Client(c));
+    } catch (err) {
+      console.warn(`Cliente ignorado: ${err.message}`, c);
+    }
+  }
+  
+  return clients;
 };
 
 // Obtener cliente por ID
@@ -75,7 +85,7 @@ const createClient = async ({ name, email, phone }) => {
   const clientsData = await readClientsFile();
 
   // Verificar que el email no este duplicado
-  if(clientsData.some(c => c.email.toLowerCase() === email.toLowerCase())) {
+  if(clientsData.some(c => c.email?.toLowerCase() === email.toLowerCase())) {
     throw new Error('El email ya esta registrado');
   }
 
@@ -99,22 +109,22 @@ const updateClient = async (id, updatedData) => {
 
   if (index === -1) return null;
 
-  // Validar email si se esta actualizando
+  // Validar email si se está actualizando
   if (updatedData.email) {
     if (!isValidEmail(updatedData.email)) {
-      throw new Error('Formato de email invalido');
+      throw new Error('Formato de email inválido');
     }
 
     // Verificar que no haya otro cliente con ese email
-    if (clientsData.some(c => c.id !== id && c.email.toLowerCase() === updatedData.email.toLowerCase())) {
-      throw new Error('El email ya esta registrado por otro cliente');
+    if (clientsData.some(c => c.id !== id && c.email?.toLowerCase() === updatedData.email.toLowerCase())) {
+      throw new Error('El email ya está registrado por otro cliente');
     }
   }
 
-  // Validar telefono si se esta actualizando
+  // Validar teléfono si se está actualizando
   if (updatedData.phone) {
     if (!isValidPhone(updatedData.phone)) {
-      throw new Error('Formato de telefono invalido');
+      throw new Error('Formato de teléfono inválido');
     }
   }
 
@@ -122,7 +132,9 @@ const updateClient = async (id, updatedData) => {
   clientsData[index] = {
     ...clientsData[index],
     name: updatedData.name?.trim() || clientsData[index].name,
-    email: updatedData.email?.trim().toLowerCase() || clientsData[index].email,
+    email: updatedData.email
+      ? updatedData.email.trim().toLowerCase()
+      : clientsData[index].email,
     phone: updatedData.phone?.trim() || clientsData[index].phone,
     updatedAt: new Date().toISOString()
   };

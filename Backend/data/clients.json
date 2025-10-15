@@ -7,5 +7,13 @@
   {
     "id": "1760287563768",
     "name": "CLIENTE DE PRUEBA"
+  },
+  {
+    "id": "9634f5ff-351d-471f-90ec-0a037c39cf22",
+    "name": "probando actualizar este cliente nuevo",
+    "email": "prueba@gmail.com",
+    "phone": "12345678",
+    "createdAt": "2025-10-15T21:47:45.287Z",
+    "updatedAt": "2025-10-15T22:14:47.880Z"
   }
 ]

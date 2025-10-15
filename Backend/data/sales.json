@@ -62,6 +62,39 @@
       }
     ],
     "total": 1200,
-    "status": "pendiente"
+    "status": "pagado",
+    "updatedAt": "2025-10-15T22:30:14.018Z"
+  },
+  {
+    "id": "62c6a439-379f-434d-98e9-4c11360496f5",
+    "date": "15/10/2025, 07:36:35 p. m.",
+    "clientId": "9634f5ff-351d-471f-90ec-0a037c39cf22",
+    "items": [
+      {
+        "plantId": "4c7a5199-2e55-482c-b549-cd5944c4f021",
+        "quantity": 1,
+        "price": 2500
+      }
+    ],
+    "total": 2500,
+    "status": "pendiente",
+    "createdAt": "2025-10-15T22:36:35.470Z",
+    "updatedAt": "2025-10-15T22:36:35.470Z"
+  },
+  {
+    "id": "d6225aba-f36d-44aa-b599-106b4508df64",
+    "date": "15/10/2025, 07:38:03 p. m.",
+    "clientId": "9634f5ff-351d-471f-90ec-0a037c39cf22",
+    "items": [
+      {
+        "plantId": "4c7a5199-2e55-482c-b549-cd5944c4f021",
+        "quantity": 1,
+        "price": 2500
+      }
+    ],
+    "total": 2500,
+    "status": "pendiente",
+    "createdAt": "2025-10-15T22:38:03.896Z",
+    "updatedAt": "2025-10-15T22:38:03.896Z"
   }
 ]

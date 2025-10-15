@@ -68,18 +68,18 @@ const updateSaleStatus = async (req, res) => {
   try {
     const updatedSale = await saleService.updateSaleStatus(req.params.id, req.body.status);
 
-    if (!updatedSale) {
-      return res.status(404).json({
-        success: false,
-        message: 'Venta no encontrada',
-      });
-    }
+   if (!updatedSale) {
+  return res.status(404).json({
+    success: false,
+    message: 'Venta no encontrada',
+  });
+}
 
-    res.json(200).json({
-      success: true,
-      message: 'Estado de venta actualizado exitosamente',
-      data: updatedSale,
-    });
+res.status(200).json({
+  success: true,
+  message: 'Estado de venta actualizado exitosamente',
+  data: updatedSale,
+});
   } catch (error) {
     res.status(400).json({
       success: false,

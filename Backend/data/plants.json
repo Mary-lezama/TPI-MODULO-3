@@ -1,16 +1,19 @@
 [
   {
     "id": "1759864383739",
-    "name": "Lavanda actualizada",
+    "name": "modificacion de prueba",
     "species": "Lavandula angustifolia",
     "price": 1200,
-    "stock": 10
+    "stock": 13,
+    "createdAt": "2025-10-15T21:34:48.027Z"
   },
   {
-    "id": "1760240848212",
-    "name": "prueba",
-    "species": "Lavandula angustifolia",
-    "price": 1200,
-    "stock": 13
+    "id": "4c7a5199-2e55-482c-b549-cd5944c4f021",
+    "name": "Monstera Deliciosa",
+    "species": "Monstera deliciosa",
+    "price": 2500,
+    "stock": 8,
+    "createdAt": "2025-10-15T21:31:14.090Z",
+    "updatedAt": "2025-10-15T21:31:14.090Z"
   }
 ]

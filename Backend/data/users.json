@@ -30,5 +30,11 @@
     "username": "nachi",
     "password": "$2b$10$hSidthCEIorlTrHoBCnWfeaMQtFXZ/s.gMqz9Ae3Hc5beisk3eOOW",
     "createdAt": "2025-10-15T21:13:08.776Z"
+  },
+  {
+    "id": "0b7a81ee-56dd-4812-a082-85cc0f300089",
+    "username": "florencia_mary",
+    "password": "$2b$10$Qc8U8zV45q355bLju5j6fOuv8ov23PG6pUCPwkybq5tqeuME8PI9a",
+    "createdAt": "2025-10-15T21:28:56.797Z"
   }
 ]

@@ -1,5 +1,5 @@
 class Sale {
-  constructor({ id, date, clientId, items, total, status }) {
+  constructor({ id, date, clientId, items, total, status,createdAt,updatedAt }) {
     // Validar campos obligatorios
     if (!id || !date || !clientId || !Array.isArray(items) || items.length === 0 || total === undefined || !status) {
       throw new Error('Faltan campos obligatorios en Venta');
