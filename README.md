@@ -35,7 +35,7 @@ UUID - Generación de IDs únicos
 ---
 ## 📁 Estructura del Proyecto
 
-API_Vivero/
+TPI-MODULO-3/
 
 ├── Backend/
 
