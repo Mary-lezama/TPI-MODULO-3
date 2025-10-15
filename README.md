@@ -1,88 +1,115 @@
-Integrantes:
-Nazarena Contreras
-Mary Lezama
-Rocio Ibañez 
+<img width="1160" height="641" alt="image" src="https://github.com/user-attachments/assets/26766639-ce7d-4a4b-83df-f86a807ddc95" />
 
 
-# 🌱 API VIVERO
+🌱 API Vivero
+API RESTful para la gestión de un vivero: clientes, plantas y ventas.
+📋 Descripción
+Sistema backend desarrollado en Node.js y Express que permite administrar:
 
-API REST para la gestión de un vivero, desarrollada con **Node.js + Express**.  
-Incluye autenticación con **JWT**, validaciones con **express-validator** y almacenamiento en archivos JSON.
+Clientes: Registro y gestión de información de clientes
+Plantas: Catálogo de plantas con stock y precios
+Ventas: Procesamiento de ventas con control de inventario
+Autenticación: Sistema seguro con JWT
+
+🚀 Tecnologías
+
+Node.js - Entorno de ejecución
+Express - Framework web
+JWT - Autenticación y autorización
+bcryptjs - Encriptación de contraseñas
+express-validator - Validación de datos
+UUID - Generación de IDs únicos
+
+---
+📁 Estructura del Proyecto
+API_Vivero/
+├── Backend/
+│   ├── controllers/     # Lógica de controladores
+│   ├── services/        # Lógica de negocio
+│   ├── routes/          # Definición de rutas
+│   ├── models/          # Modelos de datos
+│   ├── middlewares/     # Middlewares (auth, validación, errores)
+│   └── data/            # Archivos JSON (base de datos)
+├── public/              # Frontend
+├── server.js            # Punto de entrada
+├── .env                 # Variables de entorno
+└── package.json         # Dependencias
+
+---
+⚙️ Instalación
+1. Clonar el repositorio
+git clone https://github.com/tu-usuario/api-vivero.git
+cd api-vivero
+
+2. Instalar dependencias
+npm install --save-dev nodemon body-parser
+express 
+cors 
+dotenv 
+bcryptjs 
+jsonwebtoken 
+express-validator 
+uuid
+
+3. Configurar variables de entorno
+Crear un archivo .env en la raíz del proyecto:
+NODE_ENV=development
+JWT_SECRET=tu_clave_super_secreta_minimo_32_caracteres
+PORT=3000
+
+4. Iniciar el servidor
+Modo desarrollo (con nodemon):
+npm run dev
+Modo producción:
+npm start
+El servidor estará corriendo en 👉 http://localhost:3000
 
 ---
 
-## 🚀 Instalación local
+🔒 Autenticación
+La API utiliza JWT (JSON Web Tokens) para autenticación.
+Cómo usar el token:
 
-```bash
-git clone https://github.com/tuusuario/api-vivero.git
-cd TPI-MODULO-3
-npm install
-npm run dev
+Registrar usuario o iniciar sesión
+Obtener el token de la respuesta
+Incluir el token en el header de las peticiones:
+Authorization: Bearer tu_token_jwt_aqui
 
-El servidor correrá en:
-👉 http://localhost:3000
+--- 
 
-⚙️ Variables de entorno (.env)
-PORT=10000
-SECRET_KEY=clavesecreta
+✅ Validaciones
+La API valida automáticamente:
 
-📦 Endpoints principales
+Clientes: Email válido, teléfono mínimo 7 caracteres
+Plantas: Precio positivo, stock entero no negativo
+Ventas: Cliente existe, stock suficiente, items válidos
+Auth: Username mínimo 3 caracteres, password mínimo 6 caracteres
 
-🔐 Autenticación
+---
 
-POST /api/auth/register → Crear usuario
+🛠️ Scripts Disponibles
+npm start        # Iniciar servidor en producción
+npm run dev      # Iniciar servidor en desarrollo (nodemon)
 
-POST /api/auth/login → Iniciar sesión
+---
 
-GET /api/auth/verify → Verificar token
+🌐 Deployment
+La API está lista para ser desplegada en plataformas como: Render
 
-🌿 Plantas
+El puerto se configura automáticamente mediante process.env.PORT.
 
-GET /api/plants → Listar plantas
+---
 
-POST /api/plants → Crear planta
+👥 Autores
 
-PUT /api/plants/:id → Actualizar planta
+Nazarena Contreras
+Mary Lezama 
+Rocio Ibañez
 
-DELETE /api/plants/:id → Eliminar planta
-
-👥 Clientes
-
-GET /api/clients
-
-POST /api/clients
-
-PUT /api/clients/:id
-
-DELETE /api/clients/:id
-
-🛒 Ventas
-
-GET /api/sales
-
-POST /api/sales
-
-PUT /api/sales/:id/status
-
-DELETE /api/sales/:id
-
-☁️ Deploy en Render
-
-Subí el proyecto a un repositorio GitHub.
-
-En Render.com
-:
-
-Crear New Web Service
-
-Conectar tu repo
-
-Build Command: npm install
-
-Start Command: npm start
-
-Definí variables de entorno (PORT, JWT_SECRET).
-
+---
 ¡Listo! 🚀
 
 Desarrollado con ❤️ por el equipo del Vivero.
+
+
+⭐ Si te gustó este proyecto, no olvides darle una estrella en GitHub
