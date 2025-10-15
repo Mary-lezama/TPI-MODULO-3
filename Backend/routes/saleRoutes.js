@@ -1,7 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middlewares/authMiddleware');
-const { createSale, getAllSales, getSaleById, updateSaleStatus, deleteSale } = require('../controllers/saleController');
+const { saleValidator } = require('../middlewares/validators');
+const handleValidationErrors = require('../middlewares/handleValidationErrors');
+const {
+    createSale, 
+    getAllSales, 
+    getSaleById, 
+    updateSaleStatus, 
+    deleteSale
+} = require('../controllers/saleController');
 
 
 
@@ -12,10 +20,10 @@ router.get('/', verifyToken, getAllSales);
 router.get('/:id', verifyToken, getSaleById);
 
 //  Crear una venta (protegido)
-router.post('/', verifyToken, createSale);
+router.post('/', verifyToken, saleValidator, handleValidationErrors, createSale);
 
 //  Actualizar estado de una venta (protegido)
-router.put('/:id/status', verifyToken, updateSaleStatus);
+router.put('/:id/status', verifyToken, saleValidator, handleValidationErrors, updateSaleStatus);
 
 //  Eliminar una venta (protegido)
 router.delete('/:id', verifyToken, deleteSale);

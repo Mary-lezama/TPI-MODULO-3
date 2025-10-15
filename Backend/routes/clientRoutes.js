@@ -1,14 +1,19 @@
 // Vamos a definir las rutas HTTP que permiten interactuar con los clientes del 
 // vivero: crear, leer, actualizar y eliminar. 
-// Tambien aplicamos validaciones con express-validator para asegurar 
-// que los datos esten bien antes de procesarlos.
+// Tambien aplicamos validaciones con express-validator para asegurar que los datos esten bien antes de procesarlos.
 
 const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middlewares/authMiddleware');
-const { validationResult } = require('express-validator');
 const { clientValidator } = require('../middlewares/validators');
-const { createClient, getAllClients, getClientById, updateClient, deleteClient } = require('../controllers/clientController');
+const handleValidationErrors = require('../middlewares/handleValidationErrors')
+const { 
+  createClient, 
+  getAllClients, 
+  getClientById, 
+  updateClient, 
+  deleteClient 
+} = require('../controllers/clientController');
 
 
 //  Obtener todos los clientes (protegido)
@@ -17,23 +22,11 @@ router.get('/', verifyToken, getAllClients);
 //  Obtener un cliente por ID (protegido)
 router.get('/:id', verifyToken, getClientById);
 
-// Crear cliente (protegido + validado)
-router.post('/', verifyToken, clientValidator, (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-  createClient(req, res);
-});
+// Crear cliente
+router.post('/', verifyToken, clientValidator, handleValidationErrors, createClient);
 
-// Actualizar cliente (protegido + validado)
-router.put('/:id', verifyToken, clientValidator, (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-  updateClient(req, res);
-});
+// Actualizar cliente
+router.put('/:id', verifyToken, clientValidator, handleValidationErrors, updateClient);
 
 
 // Eliminar un cliente (protegido)
