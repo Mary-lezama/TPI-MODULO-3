@@ -127,7 +127,7 @@ GET /plants → Listar plantas
 
 POST /plants → Crear planta
 
-GET /plants → Buscar planta por ID
+GET /plants/:id → Buscar planta por ID
 
 PUT /plants/:id → Actualizar planta
 
@@ -149,7 +149,7 @@ DELETE /clients/:id → Eliminar cliente
 
 GET /sales  →  Listar ventas
 
-GET/sales/:id  → Obtener venta por ID
+GET /sales/:id  → Obtener venta por ID
 
 POST /sales →  Crear venta
 
