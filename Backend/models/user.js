@@ -1,12 +1,25 @@
-class User {
-  constructor(id, username, password, role = 'employee') {
-    this.id = id; // número o string único
-    this.username = username;
-    this.password = password;
-    this.role = role; // 'admin' o 'employee'
-    this.createdAt = new Date();
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ["admin", "employee"],
+      default: "employee",
+    },
+  },
+  {
+    timestamps: true,
   }
-}
+);
 
-
-module.exports = User;
+module.exports = mongoose.model("User", userSchema);

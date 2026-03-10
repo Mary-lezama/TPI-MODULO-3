@@ -9,6 +9,8 @@
  * - Listo para despliegue en Render
  */
 
+const connectDB = require("./Backend/database");
+
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -24,6 +26,8 @@ if (!process.env.JWT_SECRET){
 }
 
 const app = express();
+
+connectDB();
 
 // ========== MIDDLEWARES GLOBALES ==========
 

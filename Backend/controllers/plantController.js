@@ -33,7 +33,7 @@ const getPlantById = async (req, res) => {
   
   res.status(200).json({
     success:true,
-    message: 'Planta obtenida exisotamente',
+    message: 'Planta obtenida exitosamente',
     data: plant,
   });
 } catch (error) {
@@ -83,7 +83,7 @@ const updatePlant = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: 'Errro al actualizar planta',
+      message: 'Error al actualizar planta',
       error: error.message,
     });
   }

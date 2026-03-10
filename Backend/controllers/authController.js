@@ -7,7 +7,7 @@ const register = async (req, res) => {
     res.status(201).json({
       success: true,
       message: 'Usuario registrado exitosamente',
-      dta: user,
+      data: user,
     });
   } catch (error) {
     res.status(400).json({

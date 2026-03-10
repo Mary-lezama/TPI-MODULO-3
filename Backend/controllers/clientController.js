@@ -24,7 +24,7 @@ const getAllClients = async (req, res) => {
     const clients = await clientService.getAllClients();
     res.status(200).json({
       success: true,
-      message: 'Clientes obntenidos exitosamente',
+      message: 'Clientes obtenidos exitosamente',
       data: clients,
       count: clients.length,
     });
@@ -58,7 +58,7 @@ const getClientById = async (req, res) => {
     res. status(500).json({
       success: false,
       message: 'Error al obtener cliente',
-      error: error,message,
+      error: error.message,
     });
   }
 };

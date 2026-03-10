@@ -27,4 +27,3 @@ router.put('/:id', verifyToken, plantValidator, handleValidationErrors, updatePl
 router.delete('/:id', verifyToken, deletePlant);
 
 module.exports = router;
-

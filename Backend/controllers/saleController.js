@@ -75,7 +75,7 @@ const updateSaleStatus = async (req, res) => {
       });
     }
 
-    res.json(200).json({
+    res.status(200).json({
       success: true,
       message: 'Estado de venta actualizado exitosamente',
       data: updatedSale,

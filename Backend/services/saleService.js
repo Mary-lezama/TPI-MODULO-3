@@ -1,150 +1,91 @@
-const path = require('path');
-const fs = require('fs').promises;
-const { v4: uuidv4 } = require('uuid');
 const Sale = require('../models/sale');
+const Client = require('../models/client');
+const Plant = require('../models/plant');
 
-const salesPath = path.join(__dirname, '../data/sales.json');
-const plantsPath = path.join(__dirname, '../data/plants.json');
-const clientsPath = path.join(__dirname, '../data/clients.json');
-
-// Leer archivo JSON con manejo de errores
-const readJSON = async (filePath) => {
-  try {
-    const data = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    if (error.code === 'ENOENT') {
-      // si el archivo no existe, crear uno vacio
-      await fs.writeFile(filePath, JSON.stringify([], null, 2));
-      return[];
-    }
-    throw new Error(`Error al leer archivo: ${path.basename(filePath)}`);
-  }
-};
-
-// Escribir archivo JSON
-const writeJSON = async (filePath, data) => {
-  try {
-    await fs.writeFile(filePath, JSON.stringify(data, null, 2));
-  } catch (error) {
-    throw new Error(`Error al guardar archivo: ${path.basename(filePath)}`);
-  }
-};
-
-// Validar que la cantidad sea numero positivo
+// Validar que la cantidad sea numero positivo entero
 const isValidQuantity = (quantity) => {
   const qty = parseInt(quantity);
   return !isNaN(qty) && qty > 0 && Number.isInteger(qty);
 };
 
-// Obtener fecha actual en zona horaria Argentina
-const getArgentinaDate = () => {
-  return new Date().toLocaleString('es-AR', {
-    timeZone: 'America/Argentina/Buenos_Aires',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  });
-};
-
 // Obtener todas las ventas
 const getAllSales = async () => {
-  const sales = await readJSON(salesPath);
-  return sales.map(s => new Sale(s));
+  return await Sale.find()
+    .populate('clientId')   // trae los datos del cliente
+    .populate('items.plantId'); // trae los datos de cada planta
 };
 
 // Obtener venta por ID
 const getSaleById = async (id) => {
-  const sales = await readJSON(salesPath);
-  const saleData = sales.find(s => s.id === id);
-  return saleData ? new Sale(saleData) : null;
+  return await Sale.findById(id)
+    .populate('clientId')
+    .populate('items.plantId');
 };
 
 // Crear venta
 const createSale = async ({ clientId, items }) => {
-  // validar cliente
-  if (!clientId?.trim()) {
+  if (!clientId) {
     throw new Error('ID de cliente es obligatorio');
   }
 
-  // Validar items
   if (!Array.isArray(items) || items.length === 0) {
     throw new Error('Debe incluir al menos un producto en la venta');
   }
 
   // Verificar que el cliente exista
-  const clients = await readJSON(clientsPath);
-  const clientExists = clients.some(c => c.id === clientId);
+  const clientExists = await Client.findById(clientId);
   if (!clientExists) {
     throw new Error('Cliente no encontrado');
   }
 
-  // Procesar items y actualizar stock
-  const plants = await readJSON(plantsPath);
-  const updatedPlants = [...plants];
+  // Procesar items y calcular total
   const saleItems = [];
   let total = 0;
 
   for (const item of items) {
-    // validar que el item tenga los campos necesarios
-    if (!item.plantId?.trim() || item.quantity === undefined) {
+    if (!item.plantId || item.quantity === undefined) {
       throw new Error('Cada producto debe tener ID y cantidad');
     }
 
-    // Validar cantidad
     if (!isValidQuantity(item.quantity)) {
       throw new Error(`Cantidad invalida para producto ${item.plantId}`);
     }
 
     // Buscar la planta
-    const plantIndex = updatedPlants.findIndex(p => p.id === item.plantId);
-    if (plantIndex === -1) {
+    const plant = await Plant.findById(item.plantId);
+    if (!plant) {
       throw new Error(`Planta ${item.plantId} no encontrada`);
     }
-
-    const plant = updatedPlants[plantIndex];
 
     // Verificar stock
     if (plant.stock < item.quantity) {
       throw new Error(`Stock insuficiente para ${plant.name}. Disponible: ${plant.stock}, Solicitado: ${item.quantity}`);
     }
 
-    // Actualizar stock
-    plant.stock -= item.quantity;
+    // Descontar stock
+    await Plant.findByIdAndUpdate(item.plantId, {
+      $inc: { stock: -item.quantity }  // $inc resta o suma, con negativo resta
+    });
+
     total += plant.price * item.quantity;
     saleItems.push({
       plantId: item.plantId,
       quantity: parseInt(item.quantity),
-      price: plant.price
     });
   }
 
-  // Crear nueva venta
-  const sales = await readJSON(salesPath);
   const newSale = new Sale({
-    id: uuidv4(),
-    date: getArgentinaDate(),
     clientId,
     items: saleItems,
     total: parseFloat(total.toFixed(2)),
     status: 'pendiente',
-    createdAt: new Date().toISOString()
   });
-  
-  // Guardar cambios
-  sales.push(newSale);
-  await writeJSON(salesPath, sales);
-  await writeJSON(plantsPath, updatedPlants);
 
-  return newSale;
+  return await newSale.save();
 };
 
 // Actualizar estado de venta
 const updateSaleStatus = async (id, status) => {
-  // validar estado
   const validStatuses = ['pendiente', 'pagado', 'entregado', 'cancelado'];
 
   if (!status?.trim()) {
@@ -155,42 +96,26 @@ const updateSaleStatus = async (id, status) => {
     throw new Error(`Estado invalido. Estados permitidos: ${validStatuses.join(', ')}`);
   }
 
-  // Buscar y actualizar venta
-  const sales = await readJSON(salesPath);
-  const index = sales.findIndex(s => s.id === id);
-
-  if (index === -1) return null;
-
-  sales[index].status = status.toLowerCase();
-  sales[index].updatedAt = new Date().toISOString();
-
-  await writeJSON(salesPath, sales);
-  return new Sale(sales[index]);
+  return await Sale.findByIdAndUpdate(
+    id,
+    { status: status.toLowerCase() },
+    { new: true }
+  );
 };
 
-// Eliminar venta
+// Eliminar venta y restaurar stock
 const deleteSale = async (id) => {
-  const sales = await readJSON(salesPath);
-  const saleToDelete = sales.find(s => s.id === id);
+  const sale = await Sale.findById(id);
+  if (!sale) return null;
 
-  if (!saleToDelete) return null;
-
-  // Restaurar stock de los productos
-  const plants = await readJSON(plantsPath);
-  for (const item of saleToDelete.items) {
-    const plantIndex = plants.findIndex(p => p.id === item.plantId);
-    if (plantIndex !== -1) {
-      plants[plantIndex].stock += item.quantity;
-    }
+  // Restaurar stock de cada planta
+  for (const item of sale.items) {
+    await Plant.findByIdAndUpdate(item.plantId, {
+      $inc: { stock: item.quantity }  // $inc suma el stock de vuelta
+    });
   }
 
-  // Eliminar venta
-  const filtered = sales.filter(s => s.id !== id);
-
-  await writeJSON(salesPath, filtered);
-  await writeJSON(plantsPath, plants);
-
-  return new Sale(saleToDelete);
+  return await Sale.findByIdAndDelete(id);
 };
 
 module.exports = {
@@ -198,5 +123,5 @@ module.exports = {
   getSaleById,
   createSale,
   updateSaleStatus,
-  deleteSale
+  deleteSale,
 };

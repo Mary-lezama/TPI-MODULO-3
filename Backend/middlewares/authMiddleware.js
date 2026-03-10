@@ -45,7 +45,7 @@ function verifyToken(req, res, next) {
     if (error.name === 'TokenExpiredError') {
       errorMessage = 'Token expirado. Por favor, inicia sesion nuevamente.';
     } else if (error.name === 'JsonWebTokenError') {
-      errorMessage === 'Token invalido. Autenticacion fallida.';
+      errorMessage = 'Token invalido. Autenticacion fallida.';
     }
 
     return res.status(401).json({
