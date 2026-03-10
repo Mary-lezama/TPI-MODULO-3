@@ -55,7 +55,7 @@ const createClient = async ({ name, email, phone }) => {
 const updateClient = async (id, updatedData) => {
   if (updatedData.email) {
     if (!isValidEmail(updatedData.email)) {
-      throw new Error('Formato de email invalido');
+      throw new Error('Formato de email inválido');
     }
 
     const existing = await Client.findOne({

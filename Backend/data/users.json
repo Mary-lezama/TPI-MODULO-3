@@ -32,6 +32,7 @@
     "createdAt": "2025-10-15T21:13:08.776Z"
   },
   {
+<<<<<<< HEAD
     "id": "39df1412-3983-4831-a949-8093bd69d4d9",
     "username": "nachicontre",
     "password": "$2b$10$GRaUCpvc7pkY03Cdv4a56./fC815/o0ppm.GyV9fV3vnQqdyfDyAi",
@@ -42,5 +43,11 @@
     "username": "admin",
     "password": "$2b$10$M1Gt.qUM0C7pf3un64SLruZUgnsXGQmNw0VXllftW7Ket1skdFL/q",
     "createdAt": "2026-03-09T23:34:36.915Z"
+=======
+    "id": "0b7a81ee-56dd-4812-a082-85cc0f300089",
+    "username": "florencia_mary",
+    "password": "$2b$10$Qc8U8zV45q355bLju5j6fOuv8ov23PG6pUCPwkybq5tqeuME8PI9a",
+    "createdAt": "2025-10-15T21:28:56.797Z"
+>>>>>>> 94741b2ad1181b8286f9838e43f7cd939531a9af
   }
 ]
